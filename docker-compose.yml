@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  web:
+    build: ./Payment.Gateway/src
+    ports:
+      - "8080:80"
+    environment:
+      - "Config__CkoBankUrl=http://jsonserver:3000/"
+  jsonserver:
+    image: williamyeh/json-server
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./Cko.Bank.Simulator:/data"
+    command: "db.json --middlewares ./middleware.js"

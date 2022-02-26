@@ -9,4 +9,5 @@ public record GetPaymentResponse
     public string Currency { get; init; } = default!;
     public string? Description { get; init; }
     public string ExpiryDate { get; init; } = default!;
+    public string Status { get; init; } = default!;
 }

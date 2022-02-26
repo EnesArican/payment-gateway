@@ -2,10 +2,10 @@
 
 using AutoMapper;
 using client = Client.Dtos;
-using Payment.Gateway.Api.Dtos;
-using Payment.Gateway.Api.Models;
-using Payment.Gateway.Api.Interfaces;
+using Payment.Gateway.Api.Components.Dtos;
 using Payment.Gateway.Api.Client.Interfaces;
+using Payment.Gateway.Api.Components.Models;
+using Payment.Gateway.Api.Components.Interfaces;
 
 public class PaymentService : IPaymentService
 {
@@ -32,6 +32,13 @@ public class PaymentService : IPaymentService
         var response = await _paymentClient.GetPaymentInfoAsync(paymentId, token);
 
         return _mapper.Map<PaymentDetails>(response);
+    }
+
+    public async Task<IList<PaymentDetails>> GetAllPaymentsAsync(CancellationToken token) 
+    {
+        var response = await _paymentClient.GetAllPaymentsInfoAsync(token);
+
+        return response.Select(_mapper.Map<PaymentDetails>).ToList();
     }
 }
 

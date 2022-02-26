@@ -1,6 +1,6 @@
-namespace Payment.Gateway.Api.Models;
+namespace Payment.Gateway.Api.Components.Models;
 
-using Payment.Gateway.Api.Utils;
+using Payment.Gateway.Api.Components.Utils;
 using System.ComponentModel.DataAnnotations;
 
 public record PaymentRequest
@@ -8,35 +8,37 @@ public record PaymentRequest
     private decimal _amount;
     private string _expiryDate = default!;
 
-    [Required/*, CreditCard*/]
+    [Required, CreditCard]
     public string CardNumber { get; init; } = default!;
+
     [Required]
-    public int Cvv { get; init; }
+    public int? Cvv { get; init; }
+
     [Required]
     public string Currency { get; init; } = default!;
 
     public string? Description { get; init; }
 
     [Required]
-    public decimal Amount 
-    { 
+    public decimal Amount
+    {
         get => _amount;
-        init 
+        init
         {
             RequestValidator.ValidatePaymentAmount(value);
             _amount = value;
-        } 
+        }
     }
 
     [Required]
     public string ExpiryDate
     {
         get => _expiryDate;
-        init 
+        init
         {
             RequestValidator.ValidateExpiryDate(value);
             _expiryDate = value;
         }
-     }
+    }
 
 }

@@ -2,9 +2,8 @@
 
 using System.Net;
 using System.Text.Json;
-using Payment.Gateway.Api.Client.Utils;
-using Payment.Gateway.Api.Dtos;
-
+using Payment.Gateway.Api.Components.Dtos;
+using Payment.Gateway.Api.Components.Utils;
 
 public class ExceptionHandlingMiddleware
 {
@@ -29,7 +28,6 @@ public class ExceptionHandlingMiddleware
     }
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "application/json";
         var response = context.Response;
 
         (HttpStatusCode statusCode, string? message) = exception switch
@@ -45,7 +43,9 @@ public class ExceptionHandlingMiddleware
 
         if (string.IsNullOrEmpty(message)) return;
 
+        response.ContentType = "application/json";
         var errorResponse = new ErrorResponse { Message = message };
+
         var result = JsonSerializer.Serialize(errorResponse);
         await context.Response.WriteAsync(result);
     }

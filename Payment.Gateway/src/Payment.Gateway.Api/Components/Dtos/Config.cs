@@ -1,4 +1,4 @@
-﻿namespace Payment.Gateway.Api.Dtos;
+﻿namespace Payment.Gateway.Api.Components.Dtos;
 
 public record Config
 {

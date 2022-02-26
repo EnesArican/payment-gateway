@@ -1,6 +1,7 @@
 ﻿namespace Payment.Gateway.Api.Client.Clients;
 
 using System.Net.Http.Json;
+using System.Collections.Generic;
 using Payment.Gateway.Api.Client.Dtos;
 using Payment.Gateway.Api.Client.Interfaces;
 
@@ -26,6 +27,12 @@ public class PaymentClient : IPaymentClient
     public async Task<GetPaymentResponse> GetPaymentInfoAsync(int paymentId, CancellationToken token)
     {
         return await _httpClient.GetFromJsonAsync<GetPaymentResponse>($"{PaymentsUri}/{paymentId}", token)
+            ?? throw new InvalidOperationException("Unable to deserialize response content.");
+    }
+
+    public async Task<IList<GetPaymentResponse>> GetAllPaymentsInfoAsync(CancellationToken token)
+    {
+        return await _httpClient.GetFromJsonAsync<IList<GetPaymentResponse>>($"{PaymentsUri}", token)
             ?? throw new InvalidOperationException("Unable to deserialize response content.");
     }
 }

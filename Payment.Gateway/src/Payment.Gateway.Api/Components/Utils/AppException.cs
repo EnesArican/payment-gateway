@@ -1,4 +1,4 @@
-﻿namespace Payment.Gateway.Api.Client.Utils;
+﻿namespace Payment.Gateway.Api.Components.Utils;
 
 public class AppException : Exception
 {

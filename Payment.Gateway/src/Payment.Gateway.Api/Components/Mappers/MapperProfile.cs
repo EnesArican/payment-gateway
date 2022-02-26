@@ -1,14 +1,14 @@
-﻿namespace Payment.Gateway.Api.Mappers;
+﻿namespace Payment.Gateway.Api.Components.Mappers;
 
 using AutoMapper;
 using client = Client.Dtos;
-using Payment.Gateway.Api.Dtos;
-using Payment.Gateway.Api.Models;
-using Payment.Gateway.Api.Extensions;
+using Payment.Gateway.Api.Components.Dtos;
+using Payment.Gateway.Api.Components.Models;
+using Payment.Gateway.Api.Components.Extensions;
 
 public class MapperProfile : Profile
 {
-    public MapperProfile() 
+    public MapperProfile()
     {
         CreateMap<PaymentRequest, client.SendPaymentRequest>();
         CreateMap<client.GetPaymentResponse, PaymentDetails>()

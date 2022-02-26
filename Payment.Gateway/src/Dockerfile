@@ -1,16 +1,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
 
-COPY ./Pokemon.Api/*.csproj ./Pokemon.Api/
-RUN dotnet restore ./Pokemon.Api/
+COPY ./Payment.Gateway.Api/*.csproj ./Payment.Gateway.Api/
+RUN dotnet restore ./Payment.Gateway.Api/
 
-COPY ./Pokemon.Api.Client/*.csproj ./Pokemon.Api.Client/
-RUN dotnet restore ./Pokemon.Api.Client/
+COPY ./Payment.Gateway.Api.Client/*.csproj ./Payment.Gateway.Api.Client/
+RUN dotnet restore ./Payment.Gateway.Api.Client/
 
 COPY ./ ./
-RUN dotnet publish ./Pokemon.Api/ -c Release -o out 
+RUN dotnet publish ./Payment.Gateway.Api/ -c Release -o out 
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "Pokemon.Api.dll"]
+ENTRYPOINT ["dotnet", "Payment.Gateway.Api.dll"]
